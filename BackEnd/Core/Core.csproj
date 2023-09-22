@@ -1,0 +1,64 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+	  <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Resources\Resources.csproj" />
+    <ProjectReference Include="..\BaseCore\BaseCore.csproj" />
+  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Models\Resources\Pages.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Pages.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Models\Resources\ErrorMessages.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ErrorMessages.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Models\Resources\DataDictionary.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>DataDictionary.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Models\Resources\Buttons.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Buttons.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Models\Resources\ApiErrorResource.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ApiErrorResource.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Models\Resources\Pages.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Pages.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Models\Resources\Buttons.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Buttons.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Models\Resources\ErrorMessages.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Models\Resources\DataDictionary.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>DataDictionary.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Models\Resources\ApiErrorResource.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>ApiErrorResource.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+</Project>

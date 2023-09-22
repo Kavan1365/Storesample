@@ -1,0 +1,31 @@
+﻿@page "{guid}"
+@using System.Security.Claims;
+@model Dashboard.Pages.Base.City.IndexModel
+@inject IConfiguration Configuration
+@{
+
+    Layout = null;
+    IHttpContextAccessor _httpContextAccessor = new HttpContextAccessor();
+    var token = "Bearer " + _httpContextAccessor.HttpContext.User.Claims
+           .FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
+}
+<div class="k-rtl">
+    @(
+        Html.Mvc().Grid<CityViewModel>("CityTreeList")
+        .Config(cfg =>
+        {
+            cfg.CreateUrl = "/base/City/Create/" + Model.provinceId;
+            cfg.EditUrl = "/base/City/Create/"+Model.provinceId;
+            cfg.DeleteUrl = Configuration["urlhelper:externalurl"] + "City/delete";
+            cfg.ReadUrl = Configuration["urlhelper:externalurl"] + "City/list/"+Model.guid;
+            cfg.AllowExportToExcel = false;
+            cfg.FilterMode = FilterMode.Extra;
+        })
+        )
+
+
+
+
+
+</div>
+

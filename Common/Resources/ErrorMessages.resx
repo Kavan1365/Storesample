@@ -1,0 +1,426 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AllFieldsAreRequired" xml:space="preserve">
+    <value>پرکردن تمامی فیلد ها الزامی است</value>
+  </data>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>آیا نسبت به {0} اطمینان دارید؟</value>
+  </data>
+  <data name="AreYouSureBurnCart" xml:space="preserve">
+    <value>آیا نسبت به سوزاندن این کارت اطمینان دارید؟</value>
+  </data>
+  <data name="BadRequest" xml:space="preserve">
+    <value>درخواست ارسالی نادرست می باشد</value>
+  </data>
+  <data name="CanNotChangeCurrentAmount" xml:space="preserve">
+    <value>تغییر موجودی امکان پذیر نیست</value>
+  </data>
+  <data name="CanNotChangeSeller" xml:space="preserve">
+    <value>تغییر فروشنده امکان پذیر نیست</value>
+  </data>
+  <data name="CAPTCHA" xml:space="preserve">
+    <value>کاربر گرامی کد امنیتی اشتباه می باشد لطفا دوباره امتحان کنید.</value>
+  </data>
+  <data name="CategoryId" xml:space="preserve">
+    <value>انتخاب دسته اجباریست!</value>
+  </data>
+  <data name="CityId" xml:space="preserve">
+    <value>فیلد شهرستان اجباریست</value>
+  </data>
+  <data name="Compare" xml:space="preserve">
+    <value>فیلد {0} با فیلد {1} برابر نیست</value>
+  </data>
+  <data name="ComparePassword" xml:space="preserve">
+    <value>رمز کاربر با هم برابر نیست</value>
+  </data>
+  <data name="DearuserDeleteRecord" xml:space="preserve">
+    <value>کاربر گرامی شما قادر به حذف این رکورد نیستید.</value>
+  </data>
+  <data name="DearUserDesiredTitleSystem" xml:space="preserve">
+    <value>کاربر گرامی عنوان مورد نظر در سامانه وجود دارد</value>
+  </data>
+  <data name="Dearuserrolefieldmpty" xml:space="preserve">
+    <value>کاربر گرامی فیلد نقش نباید خالی باشد</value>
+  </data>
+  <data name="DeviceNotValid" xml:space="preserve">
+    <value>دستگاه مورد نظر معتبر نیست</value>
+  </data>
+  <data name="DisAccount" xml:space="preserve">
+    <value>کاربر گرامی اکانت شما  غیرفعال شده لطفا جهت فعال سازی گزینه ارسال مجدد رمز عبور را بزنید </value>
+  </data>
+  <data name="DisActiveUser" xml:space="preserve">
+    <value>اکانت شما شما مسدود میباشد لطفا با مدیرسایت تماس بگیرین</value>
+  </data>
+  <data name="DuplicateTrackingNumber" xml:space="preserve">
+    <value>شماره پیگیری قبلاً در پایگاه داده وجود دارد. برای هر درخواست از یک مورد منحصر به فرد استفاده کنید.</value>
+  </data>
+  <data name="EnPassword" xml:space="preserve">
+    <value>رمز عبور باید به صورت انگلیسی تایپ شود</value>
+  </data>
+  <data name="EnSiteName" xml:space="preserve">
+    <value>نام سایت به صورت انگلیسی تایپ نمایید</value>
+  </data>
+  <data name="EnUserName" xml:space="preserve">
+    <value>رمز عبور باید به صورت انگلیسی تایپ شود</value>
+  </data>
+  <data name="equalCodeSms" xml:space="preserve">
+    <value>کد اس ام اس درست نمی باشد.</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>خطا</value>
+  </data>
+  <data name="ErrorMessageRoleIds" xml:space="preserve">
+    <value>کاربر گرامی فیلد انتخاب نقش اجباری می باشد</value>
+  </data>
+  <data name="ErrorSelectusertype" xml:space="preserve">
+    <value>کاربر گرامی سیستم دچار خطا شده است لطفا با پشتیبانی تماس بگیرین</value>
+  </data>
+  <data name="ErrorSendSms" xml:space="preserve">
+    <value>ارسال اس ام اس ناموفق بوده لطفا دوباره امتحان کنید</value>
+  </data>
+  <data name="ErrorServer" xml:space="preserve">
+    <value>خطا از سمت سرور لطفا دوباره امتحان کنید</value>
+  </data>
+  <data name="ErrorServiceScanner" xml:space="preserve">
+    <value>کاربر گرامی اطلاعات مورد نظر با خطا مواجه شده لطفا دوباره امتحان کنید</value>
+  </data>
+  <data name="ErrorUploadCard" xml:space="preserve">
+    <value>کاربر گرامی لطفا کارت ملی مورد نظر را وارد نمایید</value>
+  </data>
+  <data name="FristName" xml:space="preserve">
+    <value>فیلد نام اجباریست</value>
+  </data>
+  <data name="GiftCardError" xml:space="preserve">
+    <value>رمز کارت هدیه اشتباه می یاشد لطفا دوباره امتحان نمایید</value>
+  </data>
+  <data name="GiftCardRegex" xml:space="preserve">
+    <value>رمز کارت هدیه اشتباه می باشد</value>
+  </data>
+  <data name="GoogleReCAPTCHA" xml:space="preserve">
+    <value>کد امنیتی دچار خطا شده است لطفا بعداز دو دقیقه دیگر امتحان کنید.</value>
+  </data>
+  <data name="HasUserName" xml:space="preserve">
+    <value>نام کاربری در سامانه وجود دارد</value>
+  </data>
+  <data name="imageValid" xml:space="preserve">
+    <value>کاربر گرامی لطفا عکس مورد نظر را آپلود کنید </value>
+  </data>
+  <data name="invalidcredentials" xml:space="preserve">
+    <value>گواهی نامه نامعتبر</value>
+  </data>
+  <data name="InvalidDataReceivedFromGateway" xml:space="preserve">
+    <value>داده های نامعتبر از دروازه دریافت می شود.</value>
+  </data>
+  <data name="invalidreturnURL" xml:space="preserve">
+    <value>URL برگشت نامعتبر است</value>
+  </data>
+  <data name="Invalidusernameorpassword" xml:space="preserve">
+    <value>نام کاربری یا رمز ورود نامعتبر است</value>
+  </data>
+  <data name="isFactoreNotDelete" xml:space="preserve">
+    <value>به دلیل وجود فاکتور اجازه حذف را ندارید.</value>
+  </data>
+  <data name="IsInDataCreate" xml:space="preserve">
+    <value>قبلا در سامانه ثبت شده است</value>
+  </data>
+  <data name="IsNotUniq" xml:space="preserve">
+    <value>{0} تکراری است</value>
+  </data>
+  <data name="IsNotUniqTitle" xml:space="preserve">
+    <value>عنوان مورد نظر در سامانه تکراری می باشد</value>
+  </data>
+  <data name="isuseraccess" xml:space="preserve">
+    <value>کاربر گرامی شما عضو کارمندان اتحادیه می باشید </value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>فیلد نام خانوادگی اجباریست</value>
+  </data>
+  <data name="LengthCustome" xml:space="preserve">
+    <value> کاربر گرامی تعداد کاراکتر </value>
+  </data>
+  <data name="MaxLength" xml:space="preserve">
+    <value>تعداد کارکترهای وارد شده نباید بیشتر از ({1}) باشد.</value>
+  </data>
+  <data name="MaxLength12" xml:space="preserve">
+    <value>حداکثر طول کلمه عبور 12 کاراکتر است</value>
+  </data>
+  <data name="MaxSizeFile200K" xml:space="preserve">
+    <value>کاربر گرامی اندازه فایل بیشتر 200 کیلو بایت نباشد</value>
+  </data>
+  <data name="MaxSizeFile500K" xml:space="preserve">
+    <value>کاربر گرامی اندازه فایل بیشتر 500 کیلو بایت نباشد</value>
+  </data>
+  <data name="MeetingDateIsNotTrue" xml:space="preserve">
+    <value>شما مجوز عبور ندارید، زمان مراجعه برای این ملاقات از ساعت {0} تا {1} می باشد</value>
+  </data>
+  <data name="MinLength" xml:space="preserve">
+    <value>تعداد کارکترهای وارد شده نباید کمتر از ({0}) باشد.</value>
+  </data>
+  <data name="MinLength6" xml:space="preserve">
+    <value>رمز عبور نمیتواند کمتر از 6 کاراکتر باشد</value>
+  </data>
+  <data name="MissionAccomplished" xml:space="preserve">
+    <value>عملیات باموفقیت انجام شد.</value>
+  </data>
+  <data name="MobileIsNotInCorrectFormat" xml:space="preserve">
+    <value>شماره موبایل وارد شده نادرست است</value>
+  </data>
+  <data name="NationalCode" xml:space="preserve">
+    <value>فیلد کد ملی اجباریست</value>
+  </data>
+  <data name="NationalIdValid" xml:space="preserve">
+    <value>کد ملی اشتباه می باشد.</value>
+  </data>
+  <data name="NewPasswordNotPreviousPassword" xml:space="preserve">
+    <value>رمز جدید با رمز قبلی نباید یکی باشد</value>
+  </data>
+  <data name="nonuser" xml:space="preserve">
+    <value>نا شناس</value>
+  </data>
+  <data name="nonuserError" xml:space="preserve">
+    <value>کاربر گرامی کدملی مورد نظر ناشناس می باشد.</value>
+  </data>
+  <data name="NoSuccessupload" xml:space="preserve">
+    <value>کاربر گرامی فایل مورد نظر به درستی اپلود نشده است لطفا دوباره امتحان کنید.</value>
+  </data>
+  <data name="NotAllowRequest" xml:space="preserve">
+    <value>کاربر گرامی شما به این درخواست درسترسی ندارید</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>رکورد مورد نظر یافت نشد</value>
+  </data>
+  <data name="NotMeetingUserCreateNowDisActive" xml:space="preserve">
+    <value>کاربر مورد نظر توسط حراست تایید نشده است</value>
+  </data>
+  <data name="NotMeetingUserCreateTody" xml:space="preserve">
+    <value>کاربر مورد نظر در سامانه هیچ ملاقاتی ثبت نشده است</value>
+  </data>
+  <data name="NotUserNameIsExists" xml:space="preserve">
+    <value>نام کاربری مورد نظر یافت نشد</value>
+  </data>
+  <data name="NotverifySmsCode" xml:space="preserve">
+    <value>کد احراز هویت اشتباه می باشد.</value>
+  </data>
+  <data name="NoUsername" xml:space="preserve">
+    <value>نام کاربری وجود ندارد</value>
+  </data>
+  <data name="OccupationalFieldId" xml:space="preserve">
+    <value>زمینه شغلی اجباریست!</value>
+  </data>
+  <data name="OfficeId" xml:space="preserve">
+    <value>فلید نام سازمان / اداره اجباریست</value>
+  </data>
+  <data name="OldPasswrod" xml:space="preserve">
+    <value>رمز قبلی شما اشتباه میباشد.</value>
+  </data>
+  <data name="OnlyCompletedPaymentCanBeRefunded" xml:space="preserve">
+    <value>فقط پرداخت کامل می تواند مسترد شود.</value>
+  </data>
+  <data name="PasswordRequired" xml:space="preserve">
+    <value>قسمت رمز عبور الزامی است</value>
+  </data>
+  <data name="PaymentCanceledProgrammatically" xml:space="preserve">
+    <value>پرداخت به صورت برنامه ای لغو می شود.</value>
+  </data>
+  <data name="PaymentFailed" xml:space="preserve">
+    <value>پرداخت ناموفق.</value>
+  </data>
+  <data name="PaymentIsAlreadyProcessedBefore" xml:space="preserve">
+    <value>پرداخت درخواستی قبلاً پردازش شده است.</value>
+  </data>
+  <data name="PaymentSucceed" xml:space="preserve">
+    <value>پرداخت با موفقیت انجام شد.</value>
+  </data>
+  <data name="ProvinceId" xml:space="preserve">
+    <value>فیلد استان اجباریست</value>
+  </data>
+  <data name="Rang" xml:space="preserve">
+    <value>مقدار وارد شده باید در بازه ({0}) تا ({1}) باشد!</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>فیلد {0} الزامیست!</value>
+  </data>
+  <data name="RoleIds" xml:space="preserve">
+    <value>انتخاب نقش اجباریست.</value>
+  </data>
+  <data name="SelectBetwenProrperty" xml:space="preserve">
+    <value>کاربر گرامی لطفا یکی از استانها یا گزینه انتخاب همه را انتخاب نمایید</value>
+  </data>
+  <data name="showerroforuploadfile1" xml:space="preserve">
+    <value>نوع فایل انتخاب شده باید</value>
+  </data>
+  <data name="showerroforuploadfile2" xml:space="preserve">
+    <value>باشد و حجمش کمتر از</value>
+  </data>
+  <data name="showerroforuploadfile3" xml:space="preserve">
+    <value>باشد</value>
+  </data>
+  <data name="SiteNameIsExists" xml:space="preserve">
+    <value>نام سایت مورد نظر در سامانه وجود دارد لطفا دوباره امتحان کنید.</value>
+  </data>
+  <data name="SMSCodeRequired" xml:space="preserve">
+    <value>فیلد کد اس ام اس اجباری می باشد</value>
+  </data>
+  <data name="StringLength" xml:space="preserve">
+    <value>فیلد تلفن ثابت باید رشته ای با حداقل طول {0} و حداکثر طول {1} باشد.</value>
+  </data>
+  <data name="StringLength6" xml:space="preserve">
+    <value>فیلد تلفن ثابت باید رشته ای با حداقل طول 6 و حداکثر طول {1} باشد.</value>
+  </data>
+  <data name="SuccessfulyRegistered_ConfirmYourMobile" xml:space="preserve">
+    <value>کاربر گرامی شما با موفقیت ثبت نام شدید. لطفا موبایل خود را فعال نمایید</value>
+  </data>
+  <data name="TitleIsExists" xml:space="preserve">
+    <value>عنوان  مورد نظر در سامانه موجود می باشد</value>
+  </data>
+  <data name="UnableDeleteItems" xml:space="preserve">
+    <value>به دلیل آیتم های وابسته قادر به حذف نیست</value>
+  </data>
+  <data name="Unauthorized" xml:space="preserve">
+    <value>اکانت شما غیرمجاز است</value>
+  </data>
+  <data name="UnexpectedError" xml:space="preserve">
+    <value>خطای غیرمنتظره</value>
+  </data>
+  <data name="UnexpectedErrorText" xml:space="preserve">
+    <value>یک خطای ناشناخته روی داده است.</value>
+  </data>
+  <data name="UserExistsNotInStore" xml:space="preserve">
+    <value>کاربر گرامی شما درسترسی به این فرشگاه ندارید</value>
+  </data>
+  <data name="UserNameIsExists" xml:space="preserve">
+    <value>نام کاربری وارد شده تکراری است</value>
+  </data>
+  <data name="Usernamemobilenumber" xml:space="preserve">
+    <value>نام کاربری به صورت شماره موبایل باشد</value>
+  </data>
+  <data name="UsernameRequired" xml:space="preserve">
+    <value>قسمت نام کاربری الزامی است</value>
+  </data>
+  <data name="WrongUsernameOrPassword" xml:space="preserve">
+    <value>نام کاربری یا رمز عبور اشتباه است</value>
+  </data>
+  <data name="YourPasswordIsIncorrect" xml:space="preserve">
+    <value>رمز عبور اشتباه می باشد.</value>
+  </data>
+  <data name="YourPreviousPasswordIsIncorrect" xml:space="preserve">
+    <value>رمز قبلی شما اشتباه می باشد</value>
+  </data>
+</root>

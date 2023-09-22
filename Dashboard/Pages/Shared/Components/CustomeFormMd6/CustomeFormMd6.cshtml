@@ -1,0 +1,213 @@
+﻿@using System.Collections
+@using System.Linq
+@using System;
+@using System.Reflection;
+@using System.Security.Claims
+@using Services.Models;
+@using ViewModels
+@using Services.UI.Controls.KCore.DropDownList
+@using Services.UI.Controls.KCore.Form
+@using Services.UI.Controls.KCore.TreeView
+@model Object
+
+@{
+    ViewDataDictionary MyProject = (ViewDataDictionary)(ViewData["MyProject"] = Html.ViewData);
+    MyProject.Remove("Title");
+    var accordionId = $"accordion{ Html.ViewData.ModelMetadata?.ModelType?.Name }";
+    var formId = $"{Guid.NewGuid().ToString().Replace("-","").Trim()}";
+    var formgroup = 2;
+    var renderFormGroup = true;
+    var renderEndFormGroup = false;
+
+
+}
+
+
+    @foreach (var prop in MyProject.ModelMetadata.Properties.Where(pm => pm.ShowForEdit && pm.ModelType != typeof(IEnumerable) && pm.ModelType != typeof(IEnumerable<SelectItem>) && pm.ModelType != typeof(List<TreeNode>)))
+    {
+        var value = Html.Value(prop.Name);
+        if (prop.HideSurroundingHtml || prop.PropertyName == "Id" || prop.TemplateHint == "HiddenInput")
+        {
+            if (prop.PropertyName != "Guid")
+            {
+                @Html.Hidden(prop.PropertyName)
+                continue;
+            }
+
+        }
+
+        var nameevent = ViewData.ModelMetadata.ModelType.GetProperty(prop.PropertyName)?.GetCustomAttribute<Services.Helper.ExtensionMethods.ModelShowAttribute>();
+        var dropdown = ViewData.ModelMetadata.ModelType.GetProperty(prop.PropertyName).GetCustomAttribute<DropDownListAttribute>();
+        //var dropdownTree = ViewData.ModelMetadata.ModelType.GetProperty(prop.PropertyName).GetCustomAttribute<DropDownTreeAttribute>();
+        var tree = ViewData.ModelMetadata.ModelType.GetProperty(prop.PropertyName).GetCustomAttribute<TreeViewAttribute>();
+        var InputGroup = ViewData.ModelMetadata.ModelType.GetProperty(prop.PropertyName)?.GetCustomAttribute<Services.Helper.ExtensionMethods.InputGroupAttribute>();
+
+
+        if (ViewData.ModelMetadata.ModelType.GetProperty(prop.PropertyName).IsDefined(typeof(CollapsAttribute), true))
+        {
+            var collapse = ViewData.ModelMetadata.ModelType.GetProperty(prop.PropertyName).GetCustomAttribute<CollapsAttribute>();
+            @Html.Raw($"<div class='panel'><a href='#{accordionId}_{collapse.Id}' class='{(collapse.Open ? "" : "collapsed")}' data-parent='#{accordionId}' data-toggle='collapse'>" +
+                    $"<span>{collapse.Title}</span><i class='fa fa-angle-double-left'></i></a><div id='{accordionId}_{collapse.Id}' class='collapse {(collapse.Open ? "in" : "")}'>")
+        }
+
+        var editorCol = "col-md-4";
+
+        if (prop.DataTypeName == "Html")
+        {
+            editorCol = "col-md-9 col-sm-9 col-xs-9";
+        }
+        if (nameevent != null && nameevent.IsLast)
+        {
+            editorCol = "col-md-3";
+
+        }
+        else
+        {
+            editorCol = "col-md-4";
+
+        }
+        if (renderFormGroup)
+        {
+            @Html.Raw("<div class='row' style='margin-top: 17px;'>")
+            @Html.Raw("<div class='form-group'>")
+        }
+
+
+
+        @if (prop.PropertyName != "Guid")
+        {
+
+            <label class="col-md-2">
+                @Html.DisplayName(prop.PropertyName)
+                @if (prop.IsRequired)
+                {
+                    <span style="color:red;">*</span>
+
+                }
+            </label>
+        }
+
+
+        <div class="@editorCol">
+            @if (dropdown != null)
+            {
+
+                var datasourceurl = dropdown.DataSourceUrl;
+                ModelExpressionProvider modelExpressionProvider = (ModelExpressionProvider)ViewContext.HttpContext.RequestServices.GetService(typeof(IModelExpressionProvider));
+                if (string.IsNullOrEmpty(datasourceurl))
+                {
+                    var source = modelExpressionProvider.CreateModelExpression(ViewData, dropdown.LocalSourceFieldName)?.Model as IEnumerable;
+                    if (dropdown.Multiple)
+                    {
+                        ModelExpressionProvider modelExpressionProvider1 = (ModelExpressionProvider)ViewContext.HttpContext.RequestServices.GetService(typeof(IModelExpressionProvider));
+                        var modelExplorer = modelExpressionProvider1.CreateModelExpression(ViewData, prop.Name)?.Model as IEnumerable;
+                        @Html.Mvc().DropDownList(prop.PropertyName, dropdown).SetLocalDataSource(source).SetValue(modelExplorer)
+
+                    }
+                    else
+                    {
+                        @Html.Mvc().DropDownList(prop.PropertyName, dropdown).SetLocalDataSource(source).SetValue(value)
+
+                    }
+                }
+                else
+                {
+                    if (dropdown.Multiple)
+                    {
+                        ModelExpressionProvider modelExpressionProvider1 = (ModelExpressionProvider)ViewContext.HttpContext.RequestServices.GetService(typeof(IModelExpressionProvider));
+                        var modelExplorer = modelExpressionProvider1.CreateModelExpression(ViewData, prop.Name)?.Model as IEnumerable;
+                        @Html.Mvc().DropDownList(prop.PropertyName, dropdown).SetDataSourceUrl(datasourceurl).SetValue(modelExplorer)
+
+                    }
+                    else
+                    {
+                        @Html.Mvc().DropDownList(prop.PropertyName, dropdown).SetDataSourceUrl(datasourceurl).SetValue(value)
+
+                    }
+                }
+
+
+            }
+            else if (tree != null)
+            {
+                ModelExpressionProvider modelExpressionProvider = (ModelExpressionProvider)ViewContext.HttpContext.RequestServices.GetService(typeof(IModelExpressionProvider));
+                var source = modelExpressionProvider.CreateModelExpression(ViewData, tree.LocalSourceFieldName)?.Model as List<TreeNode>;
+                @Html.Mvc().TreeView(prop.PropertyName, tree).SetLocalDataSource(source)
+
+            }
+            else
+            {
+
+
+                if (InputGroup != null && InputGroup.Name != null)
+                {
+                    <div class="input-group date">
+
+
+                        @Html.Editor(prop.PropertyName, prop.PropertyName,new{@class="k-input k-textbox k-valid", style="width: 100%;  border-radius: 0 5px 5px 0 !important;"})
+                        <div class="input-group-addon" id="icon" style="border-radius: 5px 0px 0px 5px !important; cursor: pointer;">
+                            <i class="fa">@InputGroup.Name</i>
+                        </div>
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+
+                            $("#@prop.PropertyName").attr("style", "width:100 %; border-radius: 0 5px 5px 0!important;")
+                        })
+                    </script>
+                }
+                else
+                {
+                    @Html.Editor(prop.PropertyName, prop.PropertyName)
+
+                }
+            }
+        </div>
+        if (nameevent != null && nameevent.IsLast)
+        {
+            <div class="col-md-1">
+                <button id="nameevent@(prop.PropertyName)" type="button" onclick="@nameevent.EventName" class="btn btn-sm btn-blockCustome btn-success">+</button>
+            </div>
+        }
+
+        if (formgroup >= 2)
+        {
+            formgroup--;
+            renderFormGroup = false;
+            renderEndFormGroup = false;
+        }
+        else
+        {
+            formgroup = 2;
+            renderFormGroup = true;
+            renderEndFormGroup = true;
+        }
+
+
+        if (renderEndFormGroup)
+        {
+            @Html.Raw("</div>")
+            @Html.Raw("</div>")
+        }
+
+
+        if (ViewData.ModelMetadata.ModelType.GetProperty(prop.PropertyName).IsDefined(typeof(EndCollapsAttribute), true))
+        {
+            @Html.Raw("</div></div>")
+        }
+
+
+    }
+
+    @if (!renderEndFormGroup)
+    {
+        @Html.Raw("</div>")
+        @Html.Raw("</div>")
+    }
+
+
+
+<script>
+    objuploadlist = {};
+
+</script>

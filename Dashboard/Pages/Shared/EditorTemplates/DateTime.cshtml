@@ -1,0 +1,172 @@
+﻿@using System
+@using System.Globalization
+@using System.Threading
+@using Services.Exceptions
+@using Services.Helper.Attribute;
+
+@model System.DateTime?
+
+@{
+
+    var prop = ViewData.ModelMetadata.ContainerType.GetProperty(ViewData.ModelMetadata.PropertyName);
+    var dataTimePickerAttr = prop.GetCustomAttributes(typeof(DateTimePickerAttribute), true).FirstOrDefault() as DateTimePickerAttribute;
+    var type = dataTimePickerAttr?.Type ?? DateTimePickerType.Date;
+    var startField = dataTimePickerAttr?.StartField;
+    var value = string.Empty;
+    var format = "yyyy/MM/dd";
+    var formatEn = "MM/dd/yyyy";
+    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+    var valueEn = (Model != DateTime.MinValue && Model.HasValue) ? new DateTime(Model.Value.Year, Model.Value.Month, Model.Value.Day, Model.Value.Hour, Model.Value.Minute, Model.Value.Second, new GregorianCalendar(GregorianCalendarTypes.USEnglish)).ToString() : null;
+    var enabletimepicker = (type != DateTimePickerType.DateTime).ToString().ToLower();
+    if (Model.HasValue)
+    {
+        if (type == DateTimePickerType.Date)
+        {
+            value = Model != DateTime.MinValue ? Model.Value.ToPersianDate() : DateTime.Now.ToPersianDate();
+            formatEn = "MM/dd/yyyy";
+            format = "yyyy/MM/dd";
+        }
+        else if (type == DateTimePickerType.DateTime)
+        {
+            value = Model != DateTime.MinValue ? Model.Value.ToPersianDateTime() : DateTime.Now.ToPersianDateTime();
+            formatEn = "MM/dd/yyyy HH:mm";
+            format = "yyyy/MM/dd HH:mm";
+        }
+        else if (type == DateTimePickerType.Time)
+        {
+            value = Model != DateTime.MinValue ? Model.Value.ToString("HH:mm") : DateTime.Now.ToString("HH:mm");
+            formatEn = "MM/dd/yyyy HH:mm";
+            format = "HH:mm";
+        }
+
+    }
+    if (dataTimePickerAttr?.Type != null)
+    {
+        if (type == DateTimePickerType.Date)
+        {
+            formatEn = "dd/MM/yyyy";
+            format = "yyyy/MM/dd";
+        }
+        else if (type == DateTimePickerType.DateTime)
+        {
+            formatEn = "dd/MM/yyyy HH:mm";
+            format = "yyyy/MM/dd HH:mm";
+        }
+        else if (type == DateTimePickerType.Time)
+        {
+            formatEn = "dd/MM/yyyy HH:mm";
+            format = "HH:mm";
+        }
+    }
+
+
+}
+@if (type != DateTimePickerType.Time)
+{
+    <div class="input-group date">
+        <input id="@(prop.Name)En" name="@prop.Name" value="@valueEn" style="display:none" />
+
+        <input type="text" class="form-control" title=""
+               data-role="maskedDatePickercustome"
+               value="@value"
+               style=" border-radius: 0 5px 5px 0 !important;"
+               data-mddatetimepicker="true"
+               data-englishnumber="true"
+               data-trigger="click"
+               data-targetselector="#@prop.Name"
+               data-fromdate="true"
+               data-enabletimepicker="@((type != DateTimePickerType.Date).ToString().ToLower())"
+               data-placement="bottom"
+               id="@prop.Name"
+               data-mdpersiandatetimepicker=""
+               data-mdformat="@format"
+               data-mdpersiandatetimepickerselecteddatetime=""
+               data-original-title="Value"
+               data-mdpersiandatetimepickershowing="false">
+        <div class="input-group-prepend" id="icon_@prop.Name"
+             data-mddatetimepicker="true"
+             data-englishnumber="true"
+             style="border-radius: 5px 0 0 5px  !important;"
+             data-trigger="click"
+             data-targetselector="#@prop.Name"
+             data-mdformat="@format" data-fromdate="true"
+             data-enabletimepicker="@((type != DateTimePickerType.Date).ToString().ToLower())"
+             data-placement="bottom">
+            <span class="input-group-text">
+                <i class="fa fa-calendar"></i>
+            </span>
+        </div>
+
+
+    </div>
+    <script>
+        $(document).ready(function () {
+
+
+            $('#icon_@prop.Name').MdPersianDateTimePicker({
+                englishNumber: false,
+                placement: 'bottom',
+                trigger: 'click',
+                enableTimePicker: @(enabletimepicker),
+                targetTextSelector: '#@prop.Name',
+                targetDateSelector: '#@(prop.Name)En',
+
+                dateFormat: '@formatEn',
+                textFormat: '@format',
+                calendarViewOnChange: function (date) {
+
+                }
+            });
+            $('#@prop.Name').MdPersianDateTimePicker({
+                englishNumber: false,
+                placement: 'bottom',
+                trigger: 'click',
+                targetTextSelector: '#@prop.Name',
+                targetDateSelector: '#@(prop.Name)En',
+                enableTimePicker: @(enabletimepicker),
+                dateFormat: '@formatEn',
+                textFormat: '@format',
+                calendarViewOnChange: function (date) {
+
+                }
+            });
+        });
+        @*
+        $('#@(prop.Name)').change(function () {
+        debugger;
+        var gregorianDate = moment($(this)[0].value, 'jYYYY/jMM/jDD').format('YYYY-MM-DD');
+        $('#@(prop.Name)En').val(gregorianDate)
+
+        });
+        *@
+    </script>
+}
+else
+{
+    <link href="~/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+    <script src="~/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+    <div class="form-group">
+        <div class='input-group date' id='@(prop.Name)datetimepicker'>
+            <input type='text' class="form-control" id='@prop.Name'
+                   value="@value"
+                   name='@prop.Name' />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-time"></span>
+            </span>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $('#@(prop.Name)datetimepicker').datetimepicker({
+                format: 'HH:mm'
+            });
+        });
+    </script>
+}
+
+
+
+
+
+

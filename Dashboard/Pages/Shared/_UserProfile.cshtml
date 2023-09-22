@@ -1,0 +1,40 @@
+﻿@inject IHttpService httpService;
+@inject IConfiguration Configuration
+
+@{
+    Layout = null;
+    var obj = await httpService.Get<ProfileViewModel>(Configuration["urlhelper:enternalurl"] + "profile");
+    var avatorurl = (obj.data.ImageId.HasValue) ? "/file/download?path=" + Configuration["urlhelper:externalurl"] : "/Images/avatar5.png";
+    var fullname = (obj.data)?.FirstName + " " + (obj.data)?.LastName;
+    var userName = (obj.data)?.UserName;
+}
+
+<li class="dropdown user user-menu" id="infouser">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <img src="@avatorurl" class="user-image" alt="User Image">
+        <span class="hidden-xs">@userName</span>
+    </a>
+    <ul class="dropdown-menu">
+        <li class="user-header">
+            <img src="@avatorurl" class="img-circle" alt="User Image">
+            <p>
+                @userName
+            </p>
+            <p>
+                @fullname
+            </p>
+        </li>
+        <li class="user-footer">
+            <div class="pull-left">
+                <button onclick="clickUrl('/Profile')" class="btn btn-default btn-flat">@Buttons.Profile</button>
+            </div>
+            <div class="pull-right">
+                <a href="/Account/Logout" class="btn btn-default btn-flat">@Buttons.Exit</a>
+            </div>
+        </li>
+    </ul>
+</li>
+<script>
+
+    var links = [];
+</script>

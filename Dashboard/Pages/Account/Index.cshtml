@@ -1,0 +1,114 @@
+﻿@page "{ReturnUrl?}"
+@using Microsoft.AspNetCore.Antiforgery;
+@using Services.Models;
+@model Dashboard.Pages.Account.IndexModel
+@inject IConfiguration Configuration
+
+
+@inject IConfiguration configuration
+@{
+    var ajaxRequest = Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+    Layout = (ajaxRequest ? null : "~/pages/Shared/_ClearLayout.cshtml");
+    ViewBag.PageTitle = Pages.logIn;
+}
+<style>
+    .swal-text {
+        text-align: center !important;
+    }
+</style>
+<div class="login-box">
+    <div class="login-logo">
+        <a href="/">@Model.settingModel.Title</a>
+    </div>
+<div class="card">
+    <div class="card-body login-card-body">
+           <p class="login-box-msg">@Pages.LoginToAccount</p>
+            <form method="post">
+                @Html.HiddenFor(z=>z.model.returnUrl)
+                <input id="model_CaptchaId" name="model.CaptchaId" type="hidden" value="@Model.model.CaptchaId">
+                <input id="ajaxRequest" name="ajaxRequest" value="@ajaxRequest.ToString().ToLower()" type="hidden" />
+                <div class="input-group mb-3">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" asp-for="model.UserName" placeholder="@Html.DisplayNameFor(x => x.model.UserName)">
+
+                </div>
+                <div class="input-group mb-3">
+                    <span asp-validation-for="model.UserName" class="text-danger"></span>
+
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock "></span>
+                        </div>
+                    </div>
+                    <input type="password" class="form-control" asp-for="model.Password"  placeholder="@Html.DisplayNameFor(x => x.model.Password)">
+
+                </div>
+                <div class="input-group mb-3">
+                    <span asp-validation-for="model.Password" class="text-danger"></span>
+
+                </div>
+                <div class="input-group mb-3">
+                    <img id="imageurl" src="@(configuration["urlhelper:externalurl"])file/DownloadCaptcha?path=@Model.model.CaptchaUrl" style="
+    height: 99%;
+    width: 80%;
+" />
+                    <span class="btn btn-primery btn-block"  style="
+										position: absolute;
+										right: -28px;
+										margin-right: 93%;
+										background-color: #3d7cc0;
+										color: #fff;
+										padding: 0px;
+										padding-right: 4px;
+width: 62px !important;
+										padding-left: 4px;
+										font-size: 16px;
+										bottom: 0px;
+										" onclick="resetCaptcha()" title="@Pages.CodeSecurity" alt="@Pages.CodeSecurity">جدید</span>
+                                    </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" asp-for="model.Captcha" placeholder="@Html.DisplayNameFor(x => x.model.Captcha)">
+
+                </div>
+                <div class="input-group mb-3">
+                    <span asp-validation-for="model.Captcha" class="text-danger"></span>
+
+                </div>
+                <div class="input-group mb-3">
+                    <div asp-validation-summary="ModelOnly" class="text-danger" style=" text-align: right;"></div>                </div>
+
+                <hr />  
+                <br />
+                <div class="row" style="float: left;">
+
+                        <div class="col-xs-6">
+                            <button type="submit" class="btn btn-success btn-block">@Buttons.login</button>
+                        </div>
+                    </div>
+
+            </form>
+            </div>
+        </div>
+
+</div>
+<script>
+    function resetCaptcha(){
+        $.get("@(Configuration["urlhelper:externalurl"])user/Captcha", function (res) {
+            $("#imageurl").attr("src", "@(Configuration["urlhelper:externalurl"])file/DownloadCaptcha?path=" + res.data.captchaImage)
+            $("#CaptchaId").val(res.data.captchaId)
+        })
+    }
+</script>
+
+

@@ -1,0 +1,30 @@
+﻿@using System.Web
+@model GuideViewModel
+
+@{
+    Layout = null;
+ <title>@(Model?.Title ?? " ")</title>
+}
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+    <h2 style="padding-right: 40px;">
+        <img src="/images/bicon/questions.svg" class="img-responsive" style="max-width: 45px; position: absolute; right: 0px; top: -2px;">
+        @(Model?.Title ?? "صفحه اصلی")
+        <small class="text-muted">
+            جهت معرفی و آشنایی با امکانات این صفحه ، بر روی گزینه "راهنما" کلیک کنید .
+            <a class="btn btn-sm fy pull-left collapsed l-turquoise m-t--30" style="float: left" data-toggle="collapse" href="#collapseExample" role="button">
+                راهنما
+            </a>
+        </small>
+    </h2>
+</div>
+<div class="col-md-12">
+    <div class="collapse m-t-10" id="collapseExample">
+        <div class="alert alert-info" style="    max-height: 400px;overflow-y: auto;margin: 0px 10px 10px 10px;">
+
+            @Html.Raw(HttpUtility.HtmlDecode(Model?.Description ?? "كاربر گرامي ، راهنماي اين صفحه ، در حال تهيه و تنظيم مي باشد . ممكن است تا بازديد بعدي شما ، تكميل گردد."))
+
+
+        </div>
+    </div>
+</div>

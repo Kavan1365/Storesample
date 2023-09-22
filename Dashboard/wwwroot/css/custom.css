@@ -1,0 +1,128 @@
+body {
+    font-family: Sahel,open sans,Tahoma,"DejaVu Sans",helvetica,arial,freesans,sans-serif;
+    font-size: 11pt;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: Sahel,open sans,Tahoma,"DejaVu Sans",helvetica,arial,freesans,sans-serif;
+/*    font-weight: bold;*/
+}
+
+select, input {
+    font-family: Sahel !important;
+    font-size: inherit !important;
+}
+
+@font-face {
+    font-family: Sahel;
+    src: url('/fonts/Sahel-FD.eot');
+    src: url('/fonts/Sahel-FD.eot?#iefix') format('embedded-opentype'), url('/fonts/Sahel-FD.woff') format('woff'), url('/fonts/Sahel-FD.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: Sahel;
+    src: url('/fonts/Sahel-Bold-FD.eot');
+    src: url('/fonts/Sahel-Bold-FD.eot?#iefix') format('embedded-opentype'), url('/fonts/Sahel-Bold-FD.woff') format('woff'), url('/fonts/Sahel-Bold-FD.ttf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: Sahel;
+    src: url('/fonts/Sahel-Black-FD.eot');
+    src: url('/fonts/Sahel-Black-FD.eot?#iefix') format('embedded-opentype'), url('/fonts/Sahel-Black-FD.woff') format('woff'), url('/fonts/Sahel-Black-FD.ttf') format('truetype');
+    font-weight: 900;
+}
+
+
+body {
+    font-family: Sahel,open sans,Tahoma,"DejaVu Sans",helvetica,arial,freesans,sans-serif !important;
+}
+
+div,  p, button,h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: Sahel,open sans,Tahoma,"DejaVu Sans",helvetica,arial,freesans,sans-serif !important;
+}
+
+label {
+    font-weight: 500 !important;
+}
+* {
+    direction: rtl !important;
+}
+.layout-fixed .main-sidebar {
+    right: 0;
+}
+.brand-image {
+    float: right;
+}
+.content-wrapper, .main-footer, .main-header {
+    margin-left: 0px;
+    margin-right: 250px;
+}
+.mr-auto-navbav{
+    margin-right: auto!important;
+}
+
+.ml-auto, .mx-auto {
+    margin-left: 0 !important;
+}
+.navbar-expand .navbar-nav .nav-link {
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+.swal-footer {
+    text-align: left !important;
+}
+    [class*=icheck-]>input:first-child:checked+input[type=hidden]+label::after, [class*=icheck-]>input:first-child:checked+label::after {
+    right: 15px;
+    left: auto;
+}
+.nav-sidebar .nav-link>.right, 
+.nav-sidebar .nav-link>p>.right {
+    left: 1rem;
+    right: auto;
+}
+.nav-sidebar .nav-link>.right:nth-child(2), 
+.nav-sidebar .nav-link>p>.right:nth-child(2) {
+    left: 2.2rem;
+    right: auto;
+}
+.small-box .icon>i {
+    left: 15px;
+    right: auto;
+}
+@media (min-width: 992px){
+    .sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .main-footer, .sidebar-mini.sidebar-collapse .main-header {
+        margin-right: 4.6rem!important;
+    }
+    .sidebar-mini.sidebar-collapse .content-wrapper, .sidebar-mini.sidebar-collapse .main-footer, .sidebar-mini.sidebar-collapse .main-header {
+        margin-right: 4.6rem!important;
+        margin-left: 0!important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .main-sidebar, .main-sidebar::before {
+        box-shadow: none !important;
+        margin-right: -250px;
+    }
+
+    .content-wrapper, .content-wrapper::before, .main-footer, .main-footer::before, .main-header, .main-header::before {
+        margin-right: 0;
+    }
+
+    .sidebar-open .main-sidebar, .sidebar-open .main-sidebar::before {
+        margin-right: 0;
+    }
+}
+
+.swal-overlay--show-modal {
+    z-index: 10000000 !important;
+}
+
+
+.badge-danger {
+    color: #fff;
+    background-color: #dc3545;
+    margin: 4px;
+}

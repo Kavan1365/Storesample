@@ -1,0 +1,16 @@
+﻿@page "{provinceId}/{guid?}"
+@model Dashboard.Pages.Base.City.CreateModel
+
+
+@{
+    var formId = $"{Guid.NewGuid().ToString().Replace("-","").Trim()}";
+    Layout = null;
+}
+<div class="container frm">
+    @using (Html.BeginForm(new { fromid = formId }))
+    {
+        @(await Component.InvokeAsync("CustomeForm", Model.model))
+       
+        @Html.Mvc().FormButtons()
+    }
+</div>

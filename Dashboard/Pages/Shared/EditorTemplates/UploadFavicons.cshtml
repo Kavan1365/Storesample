@@ -1,0 +1,343 @@
+﻿@using Services.Models;
+@inject IConfiguration Configuration
+
+@model int?
+
+@{
+    Layout = null;
+    int? value = Model.HasValue ? Model.Value : null;
+    bool isRequired = ViewData.ModelMetadata.IsRequired;
+    var prop = ViewData.ModelMetadata.ContainerType.GetProperty(ViewData.ModelMetadata.PropertyName);
+    var fileUploadAttr = prop.GetCustomAttributes(typeof(FileUpload), true).FirstOrDefault() as FileUpload;
+    var fileExtensions = fileUploadAttr?.FileExtensions;
+    var maxSize = fileUploadAttr?.MaxSize ?? 0;
+    var Updateurl = fileUploadAttr?.UpdateUrl ?? "/file/Custom?action=UpdateUploadFavicons";
+    var saveUrl = fileUploadAttr?.SaveUrl ?? "/file/Custom?action=UploadFilesFavicons";
+    var deleteUrl = fileUploadAttr?.RemoveUrl ?? "/file/Delete";
+
+    var auto = fileUploadAttr?.AutoUpload ?? false;
+    var multiple = fileUploadAttr?.Multiple ?? false;
+}
+<input id="@(prop.Name)" name="@(prop.Name)" type="number" value="@value" style="display:none">
+
+<input id="file@(prop.Name)"
+       data-val="@(isRequired.ToString().ToLower())"
+       name="files@(prop.Name)"
+       type="file"
+       value=""
+       aria-label="files"
+       aria-describedby="files@(prop.Name)-error"
+       aria-invalid="true">
+
+  
+@if (value>0)
+{
+    <script>
+        $(document).ready(function () {
+
+            $.get("/file/getfileinfo/@value", function (e) {
+                if (e != null) {
+                    var files = [];
+                    var result = JSON.parse(e);
+                    files.push({ name: result.FileName, size: result.Size, extension: "." + result.Extension, url: result.Url })
+                    var url = result.Url;
+                    $("#file@(prop.Name)").kendoUpload({
+                        async: {
+                            saveUrl: "@saveUrl",
+                            removeUrl: "@deleteUrl",
+                            autoUpload: @(auto.ToString().ToLower())
+                                },
+
+                        files: files,
+                        template: ({ name, size, files }) => `<a  target='_blank' href='@(Configuration["urlhelper:externalurl"])file/download?path=${url}' class='k-file-info'>` +
+                            `<span class='k-file-name' title='${name}'>${name}</span>` +
+                            `<span class='k-file-size'>${size} KB</span></a>`+
+                                `<span class='k-upload-actions'>` +
+                            `<button type='button' class='k-button k-icon-button k-button-md k-rounded-md k-button-flat k-button-flat-base k-upload-action' aria-label='حذف فایل' tabindex='-1'>` +
+                            `<span title='@(Pages.DeleteFile)' class='k-icon k-i-x k-button-icon'></span></button></span>`
+
+                        ,
+                        localization: {
+                            select: '@Pages.SelectForUpload',
+                            remove: '@Pages.DeleteFile',
+                            retry: '@Pages.retryFile',
+                            headerStatusUploading: '@Pages.headerStatusUploading',
+                            headerStatusUploaded: '@Pages.headerStatusUploaded',
+                            cancel: "@Pages.Cancel",
+                            uploadSelectedFiles: "@Pages.uploadSelectedFiles",
+                            dropFilesHere: "@Pages.dropFilesHere",
+                            statusUploading: "@Pages.statusUploading",
+                            statusUploaded: "@Pages.statusUploaded",
+                            statusWarning: "@Pages.statusWarning",
+                            statusFailed: "@Pages.statusFailed",
+                        },
+                        multiple: @(multiple.ToString().ToLower()),
+                        upload: function (e) {
+                            var files = e.files;
+                            $.each(files, function () {
+                                debugger;
+                                if (!((@Html.Raw(Json.Serialize(fileExtensions.Split(",").ToArray()))).some((num) => num === this.extension.toLowerCase()))) {
+                                    showErrorMsg("@(ErrorMessages.showerroforuploadfile1) (@fileExtensions) @(ErrorMessages.showerroforuploadfile2) (KB @maxSize)  @(ErrorMessages.showerroforuploadfile3).");
+                                    e.preventDefault();
+                                }
+                            });
+                            if ($("#@(prop.Name)").val() != null) {
+                                e.data = {
+                                    fileid: $("#@(prop.Name)").val(),
+                                };
+
+                            }
+
+                        },
+                        remove: function (e) {
+
+                            fileUidToRemove = e.files[0].uid;
+                            e.sender.options.async.removeUrl = "/file/DeleteFileByAction/" + window.location.pathname.replaceAll('/', '') + "/@(prop.Name)/" + parseInt($("#@(prop.Name)").val());
+                            e.preventDefault();
+
+                            swal({
+                                text: "@(Pages.ShowWarring)",
+                                icon: "warning",
+                                buttons: ["@(Pages.No)", "@(Pages.Yes)"],
+                                dangerMode: true
+                            }).then((willDelete) => {
+                                if (willDelete) {
+                                    var fileremove = $("#file@(prop.Name)").data("kendoUpload");
+                                    fileremove.removeFileByUid(fileUidToRemove);
+
+                                }
+                            });
+
+                        },
+                        cancel: function () {
+                            console.log('Cancel Event.');
+                        },
+                        complete: function () {
+                            console.log('Complete Event.');
+
+                        },
+                        error: function () {
+                            console.log('Error uploading file.');
+                        },
+                        progress: function (e) {
+                            console.log('Uploading file ' + e.percentComplete);
+                        },
+                        success: function (e) {
+                            console.log(e.response)
+                            if (e.operation === 'remove') {
+                                $("#@(prop.Name)").val('')
+                            } else {
+                                if (false == e.response) {
+                                    fileUidToRemove = e.files[0].uid;
+                                    var fileremove = $("#file@(prop.Name)").data("kendoUpload");
+                                    fileremove.removeFileByUid(fileUidToRemove);
+                                    showErrorMsg("@(ErrorMessages.NoSuccessupload)");
+
+                                } else {
+                                    $("#@(prop.Name)").val(e.response)
+
+                                }
+                            }
+                        }
+                    });
+                    }
+                else{
+                        $("#file@(prop.Name)").kendoUpload({
+                            async: {
+                                saveUrl: "@saveUrl",
+                                removeUrl: "@deleteUrl",
+                                autoUpload: @(auto.ToString().ToLower())
+                                },
+                            localization: {
+                            select: '@Pages.SelectForUpload',
+                            remove: '@Pages.DeleteFile',
+                            retry: '@Pages.retryFile',
+                            headerStatusUploading: '@Pages.headerStatusUploading',
+                            headerStatusUploaded: '@Pages.headerStatusUploaded',
+                            cancel: "@Pages.Cancel",
+                            uploadSelectedFiles: "@Pages.uploadSelectedFiles",
+                            dropFilesHere: "@Pages.dropFilesHere",
+                            statusUploading: "@Pages.statusUploading",
+                            statusUploaded: "@Pages.statusUploaded",
+                            statusWarning: "@Pages.statusWarning",
+                            statusFailed: "@Pages.statusFailed",
+                            },
+                            multiple: @(multiple.ToString().ToLower()),
+                            upload: function (e) {
+                                var files = e.files;
+                                $.each(files, function () {
+                                    debugger;
+                                    if (!((@Html.Raw(Json.Serialize(fileExtensions.Split(",").ToArray()))).some((num) => num === this.extension.toLowerCase()))) {
+                                    showErrorMsg("@(ErrorMessages.showerroforuploadfile1) (@fileExtensions) @(ErrorMessages.showerroforuploadfile2) (KB @maxSize)  @(ErrorMessages.showerroforuploadfile3).");
+                                    e.preventDefault();
+                                    }
+                                });
+                                if ($("#@(prop.Name)").val() != null) {
+                                    e.data = {
+                                        fileid: $("#@(prop.Name)").val(),
+                                    };
+
+                                }
+
+                            },
+                            remove: function (e) {
+
+                                fileUidToRemove = e.files[0].uid;
+                                e.sender.options.async.removeUrl = "@deleteUrl" + "/" + parseInt($("#@(prop.Name)").val());
+
+                                e.preventDefault();
+
+                                swal({
+                                text: "@(Pages.ShowFileError)",
+                                    icon: "warning",
+                                buttons: ["@(Pages.No)", "@(Pages.Yes)"],
+                                    dangerMode: true
+                                }).then((willDelete) => {
+                                    if (willDelete) {
+                                        var fileremove = $("#file@(prop.Name)").data("kendoUpload");
+                                        fileremove.removeFileByUid(fileUidToRemove);
+
+                                    }
+                                });
+
+                            },
+                            cancel: function () {
+                                console.log('Cancel Event.');
+                            },
+                            complete: function () {
+                                console.log('Complete Event.');
+
+                            },
+                            error: function () {
+                                console.log('Error uploading file.');
+                            },
+                            progress: function (e) {
+                                console.log('Uploading file ' + e.percentComplete);
+                            },
+                            success: function (e) {
+                                console.log(e.response)
+                                if (e.operation === 'remove') {
+                                    $("#@(prop.Name)").val('')
+                                } else {
+                                if (false == e.response){
+                                         fileUidToRemove = e.files[0].uid;
+                                    var fileremove = $("#file@(prop.Name)").data("kendoUpload");
+                                    fileremove.removeFileByUid(fileUidToRemove);
+                                    showErrorMsg("@(ErrorMessages.NoSuccessupload)");
+
+                                }else{
+                                    $("#@(prop.Name)").val(e.response)
+
+                                }
+                                }
+                            }
+                        });
+                }
+
+
+            })
+        });
+
+    </script>
+}else
+{
+    <script>
+        $(document).ready(function () {
+
+            
+                        $("#file@(prop.Name)").kendoUpload({
+                            async: {
+                                saveUrl: "@saveUrl",
+                                removeUrl: "@deleteUrl",
+                                autoUpload: @(auto.ToString().ToLower())
+                                        },
+                            localization: {
+                                select: 'انتخاب فایل‌ها برای ارسال',
+                                remove: 'حذف فایل',
+                                retry: 'سعی مجدد',
+                                headerStatusUploading: 'در حال ارسال فایل‌ها',
+                                headerStatusUploaded: 'پایان ارسال',
+                                cancel: "لغو",
+                                uploadSelectedFiles: "ارسال فایل‌ها",
+                                dropFilesHere: "فایل‌ها را برای ارسال، کشیده و در اینجا رها کنید",
+                                statusUploading: "در حال ارسال",
+                                statusUploaded: "ارسال شد",
+                                statusWarning: "اخطار",
+                                statusFailed: "خطا در ارسال"
+                            },
+                            multiple: @(multiple.ToString().ToLower()),
+                            upload: function (e) {
+                                var files = e.files;
+                                $.each(files, function () {
+                                    debugger;
+                                    if (!((@Html.Raw(Json.Serialize(fileExtensions.Split(",").ToArray()))).some((num) => num === this.extension.toLowerCase()))) {
+                                        showErrorMsg("نوع فایل انتخاب شده باید (@fileExtensions) باشد و حجمش کمتر از (KB @maxSize) باشد.");
+                                        e.preventDefault();
+                                    }
+                                });
+                                if ($("#@(prop.Name)").val() != null) {
+                                    e.data = {
+                                        fileid: $("#@(prop.Name)").val(),
+                                    };
+
+                                }
+
+                            },
+                            remove: function (e) {
+
+                                fileUidToRemove = e.files[0].uid;
+                                e.sender.options.async.removeUrl = "@deleteUrl" + "/" + parseInt($("#@(prop.Name)").val());
+
+                                e.preventDefault();
+
+                                swal({
+                                    text: "آیا از حذف این فایل مطمئن هستید؟",
+                                    icon: "warning",
+                                    buttons: ["خیر", "بله"],
+                                    dangerMode: true
+                                }).then((willDelete) => {
+                                    if (willDelete) {
+                                        var fileremove = $("#file@(prop.Name)").data("kendoUpload");
+                                        fileremove.removeFileByUid(fileUidToRemove);
+
+                                    }
+                                });
+
+                            },
+                            cancel: function () {
+                                console.log('Cancel Event.');
+                            },
+                            complete: function () {
+                                console.log('Complete Event.');
+
+                            },
+                            error: function () {
+                                console.log('Error uploading file.');
+                            },
+                            progress: function (e) {
+                                console.log('Uploading file ' + e.percentComplete);
+                            },
+                            success: function (e) {
+                    console.log(e.response)
+                    if (e.operation === 'remove') {
+                        $("#@(prop.Name)").val('')
+                    } else {
+                        if (false == e.response) {
+                            fileUidToRemove = e.files[0].uid;
+                            var fileremove = $("#file@(prop.Name)").data("kendoUpload");
+                            fileremove.removeFileByUid(fileUidToRemove);
+                            showErrorMsg("کاربر گرامی فایل مورد نظر به درستی اپلود نشده است لطفا دوباره امتحان کنید.");
+
+                        } else {
+                            $("#@(prop.Name)").val(e.response)
+
+                        }
+                    }
+                            }
+                        });
+
+
+        });
+    </script>
+}
+

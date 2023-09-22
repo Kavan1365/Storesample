@@ -1,0 +1,34 @@
+﻿@page
+@using System.Security.Claims;
+@model Dashboard.Pages.Base.Province.IndexModel
+@inject IConfiguration Configuration
+@{
+
+    ViewData["Title"] = "مدیریت استان و شهرستان";
+    ViewData["pageHeader"] = "مدیریت استان و شهرستان";
+    IHttpContextAccessor _httpContextAccessor = new HttpContextAccessor();
+    var token = "Bearer " + _httpContextAccessor.HttpContext.User.Claims
+           .FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value;
+}
+<div class="k-rtl">
+    @(
+        Html.Mvc().Grid<ProvinceViewModel>("ProvinceTreeList")
+        .Config(cfg =>
+        {
+            cfg.CreateUrl = "/base/Province/Create";
+            cfg.EditUrl = "/base/Province/Create";
+            cfg.DeleteUrl = Configuration["urlhelper:externalurl"] + "Province/delete";
+            cfg.ReadUrl = Configuration["urlhelper:externalurl"] + "Province/list";
+            cfg.AllowExportToExcel = false;
+            cfg.FilterMode = FilterMode.Extra;
+
+        })
+       
+        )
+
+
+
+
+
+</div>
+

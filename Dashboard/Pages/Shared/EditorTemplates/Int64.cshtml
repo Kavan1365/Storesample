@@ -1,0 +1,10 @@
+﻿
+@model long?
+@{
+    var prop = ViewData.ModelMetadata.ContainerType.GetProperty(ViewData.ModelMetadata.PropertyName);
+    long? value = Model.HasValue ? Model.Value : null;
+}
+
+<input asp-for="@Model" class="k-input k-textbox k-input-solid k-input-md k-rounded-md" value="@value" type="number">
+<span style=" float: left;" id="span@(prop.Name)">0 تومان</span>
+

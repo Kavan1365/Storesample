@@ -1,0 +1,11 @@
+﻿@page
+@model Dashboard.Pages.Base.About.IndexModel
+@{
+    ViewData["Title"] = "درباره ما ";
+    ViewData["pageHeader"] = "درباره ما ";
+}
+
+<form method="post" id="setting">
+    @(await Component.InvokeAsync("CustomeForm", Model.model))
+    @Html.Mvc().FormButtons(showCancel:false)
+</form>
